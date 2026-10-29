@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Ôn Thi Trắc Nghiệm Kinh Tế Chính Trị Mác - Lênin</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* Hide scrollbar for tabs on mobile */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white pb-16 lg:pb-0">
+
+  <!-- TOP NAVBAR -->
+  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2 sm:gap-3 cursor-pointer" onclick="goHome()">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white font-black text-sm sm:text-base shadow-sm">
+          KT
+        </div>
+        <div>
+          <h1 class="font-extrabold text-slate-900 text-xs sm:text-base leading-tight">ÔN THI TRẮC NGHIỆM KTCT</h1>
+          <p class="text-[10px] sm:text-[11px] text-slate-500 hidden sm:block">Kinh tế chính trị Mác - Lênin • 6 Chương</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-1.5 sm:gap-3">
+        <button onclick="openSummaryModal()" class="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-semibold text-xs sm:text-sm border border-indigo-200 transition">
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <span class="hidden sm:inline">Xem tài liệu ôn thi</span>
+          <span class="sm:hidden text-[11px]">Tài liệu</span>
+        </button>
+
+        <button onclick="goHome()" class="flex items-center gap-1 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 text-xs sm:text-sm font-medium transition">
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          <span class="hidden md:inline">Trang chủ</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+
+    <!-- SCREEN 1: HOME (CHỌN LOẠI BÀI THI) -->
+    <div id="home-screen" class="space-y-6 sm:space-y-8">
+      
+      <!-- Banner Hero -->
+      <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-r from-indigo-700 via-indigo-600 to-violet-600 text-white p-5 sm:p-10 shadow-lg shadow-indigo-100">
+        <div class="relative z-10 max-w-2xl space-y-3 sm:space-y-4">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-indigo-100">
+            Học phần bắt buộc • Đề thi 40 câu
+          </span>
+          <h2 class="text-xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-snug sm:leading-tight">
+            Luyện Thi Trắc Nghiệm Kinh Tế Chính Trị Mác - Lênin
+          </h2>
+          <p class="text-indigo-100 text-xs sm:text-sm md:text-base leading-relaxed">
+            Ngân hàng câu hỏi bám sát 6 chương bài giảng điện tử. Không giới hạn thời gian, tự do làm bài, giải thích cặn kẽ từng câu đúng/sai sau khi nộp bài.
+          </p>
+          <div class="pt-1 flex flex-wrap items-center gap-2.5 sm:gap-3">
+            <button onclick="openSummaryModal()" class="inline-flex items-center gap-1.5 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-white text-indigo-700 font-bold text-xs sm:text-sm shadow hover:bg-indigo-50 transition active:scale-95">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+              Xem tài liệu tóm tắt 6 chương
+            </button>
+            <span class="text-[11px] sm:text-xs text-indigo-200">
+              ⚡ 4 loại bài ôn tập • 40 câu mỗi đề
+            </span>
+          </div>
+        </div>
+
+        <!-- Decorative background shape -->
+        <div class="absolute -right-10 -bottom-10 w-60 h-60 sm:w-80 sm:h-80 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+      </div>
+
+      <!-- 4 EXAM MODES GRID -->
+      <div>
+        <div class="flex items-center justify-between mb-3 sm:mb-4">
+          <h3 class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
+            Chọn loại bài luyện tập
+          </h3>
+          <span class="text-xs font-medium text-slate-500">Mỗi đề 40 câu</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-5">
+
+          <!-- MODE 1 -->
+          <div onclick="startQuiz(1)" class="group bg-white rounded-2xl border-2 border-slate-200 p-4 sm:p-6 hover:border-indigo-500 hover:shadow-md transition-all cursor-pointer relative flex flex-col justify-between active:scale-[0.99]">
+            <div>
+              <div class="flex items-center justify-between mb-2 sm:mb-3">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-800">
+                  Loại 1 • Chuyên đề
+                </span>
+                <span class="text-xs text-slate-400 font-semibold">40 câu hỏi</span>
+              </div>
+              <h4 class="text-base sm:text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition mb-1 sm:mb-2">
+                Ôn tập Chương 1 & Chương 2
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3 sm:mb-4">
+                • <strong>Chương 1:</strong> Đối tượng, phương pháp và chức năng KTCT.<br>
+                • <strong>Chương 2:</strong> Hàng hóa, tính hai mặt của lao động, lượng giá trị, tiền tệ và quy luật giá trị.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-indigo-600 font-semibold text-xs sm:text-sm">
+              <span>Bắt đầu làm bài</span>
+              <svg class="w-4 h-4 transform group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </div>
+          </div>
+
+          <!-- MODE 2 -->
+          <div onclick="startQuiz(2)" class="group bg-white rounded-2xl border-2 border-slate-200 p-4 sm:p-6 hover:border-indigo-500 hover:shadow-md transition-all cursor-pointer relative flex flex-col justify-between active:scale-[0.99]">
+            <div>
+              <div class="flex items-center justify-between mb-2 sm:mb-3">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-100 text-purple-800">
+                  Loại 2 • Chuyên đề
+                </span>
+                <span class="text-xs text-slate-400 font-semibold">40 câu hỏi</span>
+              </div>
+              <h4 class="text-base sm:text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition mb-1 sm:mb-2">
+                Ôn tập Chương 3 & Chương 4
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3 sm:mb-4">
+                • <strong>Chương 3:</strong> Giá trị thặng dư trong CNTB (nguồn gốc, c & v, m', tích lũy, lợi nhuận, địa tô).<br>
+                • <strong>Chương 4:</strong> Cạnh tranh, 5 đặc điểm độc quyền theo Lênin và độc quyền nhà nước.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-indigo-600 font-semibold text-xs sm:text-sm">
+              <span>Bắt đầu làm bài</span>
+              <svg class="w-4 h-4 transform group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </div>
+          </div>
+
+          <!-- MODE 3 -->
+          <div onclick="startQuiz(3)" class="group bg-white rounded-2xl border-2 border-slate-200 p-4 sm:p-6 hover:border-indigo-500 hover:shadow-md transition-all cursor-pointer relative flex flex-col justify-between active:scale-[0.99]">
+            <div>
+              <div class="flex items-center justify-between mb-2 sm:mb-3">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
+                  Loại 3 • Chuyên đề
+                </span>
+                <span class="text-xs text-slate-400 font-semibold">40 câu hỏi</span>
+              </div>
+              <h4 class="text-base sm:text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition mb-1 sm:mb-2">
+                Ôn tập Chương 5 & Chương 6
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3 sm:mb-4">
+                • <strong>Chương 5:</strong> Kinh tế thị trường định hướng XHCN & các quan hệ lợi ích kinh tế ở VN.<br>
+                • <strong>Chương 6:</strong> Công nghiệp hóa, hiện đại hóa, CMCN 4.0 và hội nhập kinh tế quốc tế.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-indigo-600 font-semibold text-xs sm:text-sm">
+              <span>Bắt đầu làm bài</span>
+              <svg class="w-4 h-4 transform group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </div>
+          </div>
+
+          <!-- MODE 4 (RANDOM WITH EXAM CODE) -->
+          <div class="group bg-gradient-to-br from-indigo-50/80 via-white to-violet-50/80 rounded-2xl border-2 border-indigo-400 p-4 sm:p-6 hover:shadow-md transition-all relative flex flex-col justify-between active:scale-[0.99]">
+            <div>
+              <div class="flex items-center justify-between mb-2 sm:mb-3">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300">
+                  Loại 4 • Thi thử tổng hợp
+                </span>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[11px] sm:text-xs font-bold text-indigo-800 bg-indigo-100 px-2 py-0.5 rounded-md">
+                    Có mã đề
+                  </span>
+                  <span class="text-xs text-slate-400 font-semibold">40 câu hỏi</span>
+                </div>
+              </div>
+              <h4 class="text-base sm:text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition mb-1 sm:mb-2">
+                Đề Thi Random Tổng Hợp 6 Chương
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3 sm:mb-4">
+                Lấy ngẫu nhiên 40 câu hỏi phân bổ cân đối từ cả 6 chương. Mỗi lần click sẽ đổi một <strong>mã đề ngẫu nhiên mới</strong> hoặc có thể bấm đổi mã đề bất cứ lúc nào!
+              </p>
+            </div>
+
+            <div class="pt-3 border-t border-indigo-100 flex items-center justify-between gap-2">
+              <button onclick="startQuiz(4)" class="flex-1 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5 active:scale-95">
+                <span>Vào thi đề Random</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SCREEN 2: QUIZ TAKING -->
+    <div id="quiz-screen" class="hidden space-y-4 sm:space-y-6">
+
+      <!-- Quiz Top Control Bar -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-3 sm:p-4 shadow-xs flex flex-wrap items-center justify-between gap-2 sm:gap-4">
+        <div class="space-y-0.5 sm:space-y-1">
+          <div class="flex items-center gap-2">
+            <h2 id="quiz-title" class="font-extrabold text-slate-900 text-sm sm:text-base md:text-lg">Tên đề thi</h2>
+            <div id="exam-code-badge" class="hidden inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] sm:text-xs font-black bg-indigo-100 text-indigo-800 border border-indigo-200">
+              Mã đề: <span id="code-value">KTCT-101</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] sm:text-xs text-slate-500 font-medium">
+            <span id="quiz-progress-text">Đã làm: 0 / 40 câu</span>
+            <span>•</span>
+            <span class="text-slate-400">Không tính thời gian</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- Button to change exam code if Mode 4 -->
+          <button id="change-code-btn" onclick="changeExamCode()" class="hidden flex items-center gap-1 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold transition active:scale-95">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <span>Đổi mã đề</span>
+          </button>
+
+          <!-- Submit Button -->
+          <button onclick="confirmSubmit()" class="flex items-center gap-1 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold shadow transition active:scale-95">
+            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span>Nộp bài</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Linear progress bar -->
+      <div class="w-full bg-slate-200 h-1.5 sm:h-2 rounded-full overflow-hidden">
+        <div id="quiz-progress-bar" class="bg-indigo-600 h-full w-0 transition-all duration-300"></div>
+      </div>
+
+      <!-- Quiz Body: 2 Columns Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start">
+
+        <!-- Left: Question Display Area (8 cols) -->
+        <div class="lg:col-span-8" id="question-display-area">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Right: Desktop Question Palette (4 cols, hidden on small screens) -->
+        <div class="hidden lg:block lg:col-span-4 space-y-4">
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs sticky top-20">
+            <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+              <h3 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+                Bảng câu hỏi (40 câu)
+              </h3>
+              <span class="text-xs text-slate-500">Bấm số để chuyển</span>
+            </div>
+
+            <!-- Legend -->
+            <div class="flex flex-wrap items-center gap-3 text-[11px] text-slate-600 mb-4 pb-2 border-b border-slate-100">
+              <div class="flex items-center gap-1">
+                <span class="w-3 h-3 rounded-md bg-indigo-600 inline-block"></span> Đã chọn
+              </div>
+              <div class="flex items-center gap-1">
+                <span class="w-3 h-3 rounded-md bg-slate-100 border border-slate-300 inline-block"></span> Chưa làm
+              </div>
+              <div class="flex items-center gap-1">
+                <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span> Xem lại
+              </div>
+            </div>
+
+            <!-- Grid container -->
+            <div id="palette-container">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <div class="mt-5 pt-4 border-t border-slate-100 space-y-2">
+              <button onclick="confirmSubmit()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow transition flex items-center justify-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Nộp bài & Chấm điểm
+              </button>
+              <button onclick="openSummaryModal()" class="w-full py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition">
+                📖 Tra cứu tài liệu ôn thi
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- SCREEN 3: RESULT & DETAILED REVIEW -->
+    <div id="result-screen" class="hidden space-y-6 sm:space-y-8">
+
+      <!-- Score Summary Card -->
+      <div class="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 p-5 sm:p-8 shadow-xs">
+        <div class="text-center max-w-xl mx-auto space-y-2.5 sm:space-y-3">
+          <div id="res-badge" class="inline-flex items-center px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold bg-emerald-100 text-emerald-800">
+            Kết quả bài thi
+          </div>
+          <h2 class="text-xl sm:text-3xl font-extrabold text-slate-900">
+            Báo Cáo Điểm Số & Đánh Giá
+          </h2>
+          <p id="res-exam-name" class="text-xs sm:text-sm font-semibold text-indigo-600">Đề thi KTCT</p>
+          <p id="res-message" class="text-xs sm:text-sm text-slate-600 leading-relaxed px-2">
+            Lời nhận xét đánh giá kết quả ôn luyện...
+          </p>
+
+          <!-- Big Score Box -->
+          <div class="py-2 sm:py-4">
+            <div class="inline-flex items-baseline gap-1 text-slate-900">
+              <span id="res-score" class="text-5xl sm:text-6xl font-black text-indigo-600">8.5</span>
+              <span class="text-slate-400 font-bold text-lg sm:text-xl">/ 10</span>
+            </div>
+            <div class="text-xs font-semibold text-slate-500 mt-1">
+              Tỷ lệ chính xác: <strong id="res-pct" class="text-slate-800">85%</strong>
+            </div>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="grid grid-cols-3 gap-2 sm:gap-3 pt-1 sm:pt-2">
+            <div class="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-emerald-50 border border-emerald-200">
+              <div class="text-[11px] sm:text-xs text-emerald-700 font-medium">Số câu đúng</div>
+              <div id="res-correct" class="text-lg sm:text-2xl font-black text-emerald-800">34</div>
+            </div>
+            <div class="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-rose-50 border border-rose-200">
+              <div class="text-[11px] sm:text-xs text-rose-700 font-medium">Số câu sai</div>
+              <div id="res-wrong" class="text-lg sm:text-2xl font-black text-rose-800">5</div>
+            </div>
+            <div class="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-slate-100 border border-slate-200">
+              <div class="text-[11px] sm:text-xs text-slate-600 font-medium">Chưa làm</div>
+              <div id="res-unanswered" class="text-lg sm:text-2xl font-black text-slate-700">1</div>
+            </div>
+          </div>
+
+          <!-- Action buttons (Crucial: res-change-code-btn hidden for modes 1, 2, 3) -->
+          <div class="pt-4 sm:pt-6 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
+            <button onclick="retakeExam()" class="flex-1 sm:flex-none px-4 sm:px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm shadow transition flex items-center justify-center gap-1.5 active:scale-95">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              Làm lại đề này
+            </button>
+
+            <!-- HIDE THIS BUTTON AUTOMATICALLY FOR MODES 1, 2, 3! ONLY SHOWN IN MODE 4 -->
+            <button id="res-change-code-btn" onclick="changeExamCode()" class="flex-1 sm:flex-none px-4 sm:px-5 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-bold text-xs sm:text-sm shadow transition flex items-center justify-center gap-1.5 active:scale-95">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+              Đổi mã đề khác
+            </button>
+
+            <button onclick="goHome()" class="w-full sm:w-auto px-4 sm:px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-xs sm:text-sm hover:bg-slate-50 transition active:scale-95">
+              Chọn loại bài khác
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DETAILED REVIEW SECTION -->
+      <div class="space-y-3.5 sm:space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 pb-2 border-b border-slate-200">
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-slate-900">Xem lại bài làm & Lời giải chi tiết</h3>
+            <p class="text-[11px] sm:text-xs text-slate-500">Phân tích vì sao đáp án đúng và trích dẫn nội dung từ Slide bài giảng</p>
+          </div>
+
+          <!-- Filter buttons -->
+          <div class="flex items-center gap-1 bg-slate-200/80 p-1 rounded-xl text-xs font-semibold self-start sm:self-auto">
+            <button id="filter-btn-all" onclick="setReviewFilter('all')" class="filter-btn px-2.5 sm:px-3 py-1.5 rounded-lg bg-indigo-600 text-white shadow-xs transition">
+              Tất cả (40)
+            </button>
+            <button id="filter-btn-wrong" onclick="setReviewFilter('wrong')" class="filter-btn px-2.5 sm:px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+              Chỉ câu sai
+            </button>
+            <button id="filter-btn-correct" onclick="setReviewFilter('correct')" class="filter-btn px-2.5 sm:px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+              Chỉ câu đúng
+            </button>
+          </div>
+        </div>
+
+        <!-- Question review cards -->
+        <div id="review-list-container" class="space-y-3.5 sm:space-y-4">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- MOBILE FIXED BOTTOM DOCK (CHỈ HIỆN TRÊN ĐIỆN THOẠI KHI ĐANG LÀM BÀI) -->
+  <div id="mobile-bottom-bar" class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-3 py-2 shadow-lg flex items-center justify-between gap-2">
+    <button id="mobile-prev-btn" onclick="prevQuestion()" class="py-2 px-3 rounded-xl border border-slate-300 text-slate-700 font-bold text-xs flex items-center justify-center gap-1 active:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      <span>Trước</span>
+    </button>
+    <button id="mobile-palette-btn" onclick="openMobilePalette()" class="flex-1 py-2 px-2.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs flex items-center justify-center gap-1.5 border border-indigo-200 active:scale-95">
+      <svg class="w-3.5 h-3.5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+      <span id="mobile-palette-btn-text">Bảng câu hỏi</span>
+    </button>
+    <button id="mobile-next-btn" onclick="nextQuestion()" class="py-2 px-3 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center justify-center gap-1 shadow-xs active:scale-95">
+      <span>Sau</span>
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+  <!-- MOBILE PALETTE DRAWER (BOTTOM SHEET TRÊN ĐIỆN THOẠI) -->
+  <div id="mobile-palette-drawer" class="lg:hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex flex-col justify-end">
+    <div class="bg-white rounded-t-3xl max-h-[80vh] flex flex-col shadow-2xl p-4 sm:p-5 space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <div>
+          <h3 class="font-bold text-slate-900 text-sm">Bảng câu hỏi (40 câu)</h3>
+          <p class="text-[11px] text-slate-500">Chạm vào số câu để chuyển nhanh</p>
+        </div>
+        <button onclick="closeMobilePalette()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 text-xs font-bold">
+          ✕
+        </button>
+      </div>
+
+      <!-- Legend -->
+      <div class="flex items-center gap-3 text-[11px] text-slate-600">
+        <div class="flex items-center gap-1">
+          <span class="w-2.5 h-2.5 rounded bg-indigo-600 inline-block"></span> Đã chọn
+        </div>
+        <div class="flex items-center gap-1">
+          <span class="w-2.5 h-2.5 rounded bg-slate-100 border border-slate-300 inline-block"></span> Chưa làm
+        </div>
+        <div class="flex items-center gap-1">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span> Xem lại
+        </div>
+      </div>
+
+      <!-- Grid Palette -->
+      <div id="mobile-palette-container" class="overflow-y-auto max-h-[45vh] pr-1">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div class="pt-2 border-t border-slate-100 flex items-center gap-2">
+        <button onclick="confirmSubmit()" class="flex-1 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-sm flex items-center justify-center gap-1">
+          Nộp bài ngay
+        </button>
+        <button onclick="closeMobilePalette()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-xs">
+          Đóng
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIRM SUBMIT MODAL -->
+  <div id="submit-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-sm sm:max-w-md w-full p-5 sm:p-7 shadow-2xl space-y-4">
+      <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mx-auto">
+        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+      </div>
+      <h3 class="text-base sm:text-lg font-bold text-center text-slate-900">Xác nhận nộp bài</h3>
+      <p id="submit-modal-text" class="text-xs sm:text-sm text-slate-600 text-center leading-relaxed">
+        Bạn có chắc chắn muốn nộp bài?
+      </p>
+      <div class="grid grid-cols-2 gap-2.5 sm:gap-3 pt-1">
+        <button onclick="cancelSubmit()" class="w-full py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-xs sm:text-sm hover:bg-slate-50 transition active:scale-95">
+          Làm tiếp
+        </button>
+        <button onclick="performSubmit()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow transition active:scale-95">
+          Đồng ý nộp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STUDY GUIDE MODAL (TÀI LIỆU ÔN TẬP - TỐI ƯU MOBILE) -->
+  <div id="summary-modal" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm hidden flex items-center justify-center sm:p-6">
+    <div class="bg-white sm:rounded-3xl w-full h-full sm:h-[90vh] sm:max-w-4xl flex flex-col shadow-2xl overflow-hidden">
+      <!-- Modal Header -->
+      <div class="px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-xs">
+            📖
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-900 text-xs sm:text-base">Tài Liệu Đề Cương Ôn Thi KTCT</h3>
+            <p class="text-[10px] sm:text-[11px] text-slate-500">Giảng viên: Nguyễn Như Quảng</p>
+          </div>
+        </div>
+        <button onclick="closeSummaryModal()" class="w-8 h-8 rounded-full bg-slate-200 hover:bg-slate-300 flex items-center justify-center text-slate-600 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="flex items-center gap-1 px-3 sm:px-6 py-2 border-b border-slate-200 overflow-x-auto bg-white no-scrollbar">
+        <button id="sum-tab-ch1" onclick="switchSummaryTab('ch1')" class="summary-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap border-b-2 border-indigo-600 text-indigo-600 bg-indigo-50/60 transition">
+          Chương 1
+        </button>
+        <button id="sum-tab-ch2" onclick="switchSummaryTab('ch2')" class="summary-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap border-b-2 border-transparent text-slate-600 hover:text-slate-900 transition">
+          Chương 2
+        </button>
+        <button id="sum-tab-ch3" onclick="switchSummaryTab('ch3')" class="summary-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap border-b-2 border-transparent text-slate-600 hover:text-slate-900 transition">
+          Chương 3
+        </button>
+        <button id="sum-tab-ch4" onclick="switchSummaryTab('ch4')" class="summary-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap border-b-2 border-transparent text-slate-600 hover:text-slate-900 transition">
+          Chương 4
+        </button>
+        <button id="sum-tab-ch5" onclick="switchSummaryTab('ch5')" class="summary-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap border-b-2 border-transparent text-slate-600 hover:text-slate-900 transition">
+          Chương 5
+        </button>
+        <button id="sum-tab-ch6" onclick="switchSummaryTab('ch6')" class="summary-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap border-b-2 border-transparent text-slate-600 hover:text-slate-900 transition">
+          Chương 6
+        </button>
+        <button id="sum-tab-formulas" onclick="switchSummaryTab('formulas')" class="summary-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap border-b-2 border-transparent text-slate-600 hover:text-slate-900 transition">
+          📐 Công Thức
+        </button>
+      </div>
+
+      <!-- Tab Content Area -->
+      <div id="summary-content-area" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-4 sm:px-6 py-2.5 sm:py-3 border-t border-slate-200 bg-slate-50 flex items-center justify-between">
+        <span class="text-[11px] sm:text-xs text-slate-500">Có thể mở tra cứu bất kỳ lúc nào</span>
+        <button onclick="closeSummaryModal()" class="px-4 py-1.5 rounded-xl bg-indigo-600 text-white font-semibold text-xs hover:bg-indigo-700 transition">
+          Đóng
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="questions_data.js"></script>
+  <script src="summary_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
