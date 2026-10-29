@@ -39,9 +39,32 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+    /* Visibility rules for mobile dock & top nav actions */
+    #mobile-bottom-bar {
+      display: none !important;
+    }
+    body.in-quiz #mobile-bottom-bar {
+      display: flex !important;
+    }
+    @media (min-width: 1024px) {
+      body.in-quiz #mobile-bottom-bar {
+        display: none !important;
+      }
+    }
+    body.in-quiz #top-nav-actions {
+      display: none !important;
+    }
+    body.in-quiz {
+      padding-bottom: 5rem !important;
+    }
+    @media (min-width: 1024px) {
+      body.in-quiz {
+        padding-bottom: 0 !important;
+      }
+    }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white pb-16 lg:pb-0">
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
 
   <!-- TOP NAVBAR -->
   <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
@@ -117,7 +140,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-5">
 
           <!-- MODE 1 -->
-          <div onclick="startQuiz(1)" class="group bg-white rounded-2xl border-2 border-slate-200 p-4 sm:p-6 hover:border-indigo-500 hover:shadow-md transition-all cursor-pointer relative flex flex-col justify-between active:scale-[0.99]">
+          <div onclick="document.body.classList.add('in-quiz'); startQuiz(1);" class="group bg-white rounded-2xl border-2 border-slate-200 p-4 sm:p-6 hover:border-indigo-500 hover:shadow-md transition-all cursor-pointer relative flex flex-col justify-between active:scale-[0.99]">
             <div>
               <div class="flex items-center justify-between mb-2 sm:mb-3">
                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-800">
@@ -140,7 +163,7 @@
           </div>
 
           <!-- MODE 2 -->
-          <div onclick="startQuiz(2)" class="group bg-white rounded-2xl border-2 border-slate-200 p-4 sm:p-6 hover:border-indigo-500 hover:shadow-md transition-all cursor-pointer relative flex flex-col justify-between active:scale-[0.99]">
+          <div onclick="document.body.classList.add('in-quiz'); startQuiz(2);" class="group bg-white rounded-2xl border-2 border-slate-200 p-4 sm:p-6 hover:border-indigo-500 hover:shadow-md transition-all cursor-pointer relative flex flex-col justify-between active:scale-[0.99]">
             <div>
               <div class="flex items-center justify-between mb-2 sm:mb-3">
                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-100 text-purple-800">
@@ -163,7 +186,7 @@
           </div>
 
           <!-- MODE 3 -->
-          <div onclick="startQuiz(3)" class="group bg-white rounded-2xl border-2 border-slate-200 p-4 sm:p-6 hover:border-indigo-500 hover:shadow-md transition-all cursor-pointer relative flex flex-col justify-between active:scale-[0.99]">
+          <div onclick="document.body.classList.add('in-quiz'); startQuiz(3);" class="group bg-white rounded-2xl border-2 border-slate-200 p-4 sm:p-6 hover:border-indigo-500 hover:shadow-md transition-all cursor-pointer relative flex flex-col justify-between active:scale-[0.99]">
             <div>
               <div class="flex items-center justify-between mb-2 sm:mb-3">
                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
@@ -208,7 +231,7 @@
             </div>
 
             <div class="pt-3 border-t border-indigo-100 flex items-center justify-between gap-2">
-              <button onclick="startQuiz(4)" class="flex-1 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5 active:scale-95">
+              <button onclick="document.body.classList.add('in-quiz'); startQuiz(4);" class="flex-1 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5 active:scale-95">
                 <span>Vào thi đề Random</span>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </button>
@@ -407,7 +430,7 @@
   </main>
 
   <!-- MOBILE FIXED BOTTOM DOCK (CHỈ HIỆN TRÊN ĐIỆN THOẠI KHI ĐANG LÀM BÀI) -->
-  <div id="mobile-bottom-bar" class="hidden lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-3 py-2 shadow-lg flex items-center justify-between gap-2">
+  <div id="mobile-bottom-bar" class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-3 py-2 shadow-lg flex items-center justify-between gap-2">
     <button id="mobile-prev-btn" onclick="prevQuestion()" class="py-2 px-3 rounded-xl border border-slate-300 text-slate-700 font-bold text-xs flex items-center justify-center gap-1 active:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed">
       <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
       <span>Trước</span>
@@ -545,8 +568,8 @@
   </div>
 
   <!-- SCRIPTS -->
-  <script src="questions_data.js"></script>
-  <script src="summary_data.js"></script>
-  <script src="app.js"></script>
+  <script src="questions_data.js?v=20261030_02"></script>
+  <script src="summary_data.js?v=20261030_02"></script>
+  <script src="app.js?v=20261030_02"></script>
 </body>
 </html>

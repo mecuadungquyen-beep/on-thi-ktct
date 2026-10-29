@@ -68,16 +68,17 @@ function startQuiz(mode) {
   document.getElementById('result-screen').classList.add('hidden');
   document.getElementById('quiz-screen').classList.remove('hidden');
 
-  // KEY REQUIREMENT 1: Show Mobile Bottom Navigation ONLY during quiz
+  // KEY REQUIREMENT: In quiz state
+  document.body.classList.add('in-quiz');
   const mobileBottomBar = document.getElementById('mobile-bottom-bar');
   if (mobileBottomBar) {
     mobileBottomBar.classList.remove('hidden');
+    mobileBottomBar.style.display = 'flex';
   }
-
-  // KEY REQUIREMENT 2: HIDE top nav "Tài liệu" and "Home" buttons when taking quiz!
   const topNavActions = document.getElementById('top-nav-actions');
   if (topNavActions) {
     topNavActions.classList.add('hidden');
+    topNavActions.style.display = 'none';
   }
 
   updateQuizHeader();
@@ -411,16 +412,17 @@ function performSubmit() {
   closeMobilePalette();
   isSubmitted = true;
 
-  // HIDE Mobile bottom bar after submit
+  // Exit quiz state on submit
+  document.body.classList.remove('in-quiz');
   const mobileBottomBar = document.getElementById('mobile-bottom-bar');
   if (mobileBottomBar) {
     mobileBottomBar.classList.add('hidden');
+    mobileBottomBar.style.display = 'none';
   }
-
-  // RESTORE top nav buttons on result screen
   const topNavActions = document.getElementById('top-nav-actions');
   if (topNavActions) {
     topNavActions.classList.remove('hidden');
+    topNavActions.style.display = 'flex';
   }
 
   let correctCount = 0;
@@ -621,16 +623,17 @@ function retakeExam() {
   document.getElementById('result-screen').classList.add('hidden');
   document.getElementById('quiz-screen').classList.remove('hidden');
 
-  // Show bottom bar during exam
+  // Re-enter quiz state
+  document.body.classList.add('in-quiz');
   const mobileBottomBar = document.getElementById('mobile-bottom-bar');
   if (mobileBottomBar) {
     mobileBottomBar.classList.remove('hidden');
+    mobileBottomBar.style.display = 'flex';
   }
-
-  // Hide top nav buttons during exam
   const topNavActions = document.getElementById('top-nav-actions');
   if (topNavActions) {
     topNavActions.classList.add('hidden');
+    topNavActions.style.display = 'none';
   }
 
   updateQuizHeader();
@@ -656,16 +659,17 @@ function goHome() {
   document.getElementById('result-screen').classList.add('hidden');
   document.getElementById('home-screen').classList.remove('hidden');
 
-  // HIDE Mobile bottom bar on home screen!
+  // Exit quiz state
+  document.body.classList.remove('in-quiz');
   const mobileBottomBar = document.getElementById('mobile-bottom-bar');
   if (mobileBottomBar) {
     mobileBottomBar.classList.add('hidden');
+    mobileBottomBar.style.display = 'none';
   }
-
-  // RESTORE top nav buttons on home screen!
   const topNavActions = document.getElementById('top-nav-actions');
   if (topNavActions) {
     topNavActions.classList.remove('hidden');
+    topNavActions.style.display = 'flex';
   }
 
   closeMobilePalette();
@@ -752,13 +756,16 @@ function renderSummaryContent(tabKey) {
 // Window load init
 window.addEventListener('DOMContentLoaded', () => {
   // Ensure correct initial state on home screen
+  document.body.classList.remove('in-quiz');
   const mobileBottomBar = document.getElementById('mobile-bottom-bar');
   if (mobileBottomBar) {
     mobileBottomBar.classList.add('hidden');
+    mobileBottomBar.style.display = 'none';
   }
   const topNavActions = document.getElementById('top-nav-actions');
   if (topNavActions) {
     topNavActions.classList.remove('hidden');
+    topNavActions.style.display = 'flex';
   }
 
   window.addEventListener('keydown', (e) => {
