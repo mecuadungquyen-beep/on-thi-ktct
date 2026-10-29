@@ -68,6 +68,18 @@ function startQuiz(mode) {
   document.getElementById('result-screen').classList.add('hidden');
   document.getElementById('quiz-screen').classList.remove('hidden');
 
+  // KEY REQUIREMENT 1: Show Mobile Bottom Navigation ONLY during quiz
+  const mobileBottomBar = document.getElementById('mobile-bottom-bar');
+  if (mobileBottomBar) {
+    mobileBottomBar.classList.remove('hidden');
+  }
+
+  // KEY REQUIREMENT 2: HIDE top nav "Tài liệu" and "Home" buttons when taking quiz!
+  const topNavActions = document.getElementById('top-nav-actions');
+  if (topNavActions) {
+    topNavActions.classList.add('hidden');
+  }
+
   updateQuizHeader();
   renderQuestion();
   renderPalette();
@@ -215,7 +227,7 @@ function renderQuestion() {
   html += `
       </div>
 
-      <!-- Desktop Navigation Buttons (hidden on mobile, bottom dock handles it) -->
+      <!-- Desktop Navigation Buttons -->
       <div class="hidden sm:flex items-center justify-between mt-8 pt-6 border-t border-slate-100">
         <button onclick="prevQuestion()" ${currentQuestionIndex === 0 ? 'disabled' : ''} class="flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-medium text-sm hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
@@ -330,9 +342,7 @@ function closeMobilePalette() {
 
 // Render Palette
 function renderPalette() {
-  // Render Desktop Palette
   const desktopContainer = document.getElementById('palette-container');
-  // Render Mobile Palette
   const mobileContainer = document.getElementById('mobile-palette-container');
 
   const html = buildPaletteGridHtml();
@@ -400,6 +410,18 @@ function performSubmit() {
   document.getElementById('submit-modal').classList.add('hidden');
   closeMobilePalette();
   isSubmitted = true;
+
+  // HIDE Mobile bottom bar after submit
+  const mobileBottomBar = document.getElementById('mobile-bottom-bar');
+  if (mobileBottomBar) {
+    mobileBottomBar.classList.add('hidden');
+  }
+
+  // RESTORE top nav buttons on result screen
+  const topNavActions = document.getElementById('top-nav-actions');
+  if (topNavActions) {
+    topNavActions.classList.remove('hidden');
+  }
 
   let correctCount = 0;
   let wrongCount = 0;
@@ -599,6 +621,18 @@ function retakeExam() {
   document.getElementById('result-screen').classList.add('hidden');
   document.getElementById('quiz-screen').classList.remove('hidden');
 
+  // Show bottom bar during exam
+  const mobileBottomBar = document.getElementById('mobile-bottom-bar');
+  if (mobileBottomBar) {
+    mobileBottomBar.classList.remove('hidden');
+  }
+
+  // Hide top nav buttons during exam
+  const topNavActions = document.getElementById('top-nav-actions');
+  if (topNavActions) {
+    topNavActions.classList.add('hidden');
+  }
+
   updateQuizHeader();
   renderQuestion();
   renderPalette();
@@ -607,9 +641,33 @@ function retakeExam() {
 
 // Return to Home
 function goHome() {
+  if (!isSubmitted && currentMode !== null) {
+    if (!confirm("Bạn đang làm bài thi. Bạn có chắc chắn muốn thoát về trang chủ không?")) {
+      return;
+    }
+  }
+
+  currentMode = null;
+  isSubmitted = false;
+  userAnswers = {};
+  flaggedQuestions = {};
+
   document.getElementById('quiz-screen').classList.add('hidden');
   document.getElementById('result-screen').classList.add('hidden');
   document.getElementById('home-screen').classList.remove('hidden');
+
+  // HIDE Mobile bottom bar on home screen!
+  const mobileBottomBar = document.getElementById('mobile-bottom-bar');
+  if (mobileBottomBar) {
+    mobileBottomBar.classList.add('hidden');
+  }
+
+  // RESTORE top nav buttons on home screen!
+  const topNavActions = document.getElementById('top-nav-actions');
+  if (topNavActions) {
+    topNavActions.classList.remove('hidden');
+  }
+
   closeMobilePalette();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -693,6 +751,16 @@ function renderSummaryContent(tabKey) {
 
 // Window load init
 window.addEventListener('DOMContentLoaded', () => {
+  // Ensure correct initial state on home screen
+  const mobileBottomBar = document.getElementById('mobile-bottom-bar');
+  if (mobileBottomBar) {
+    mobileBottomBar.classList.add('hidden');
+  }
+  const topNavActions = document.getElementById('top-nav-actions');
+  if (topNavActions) {
+    topNavActions.classList.remove('hidden');
+  }
+
   window.addEventListener('keydown', (e) => {
     if (document.getElementById('quiz-screen').classList.contains('hidden')) return;
     if (e.key === 'ArrowRight') {
